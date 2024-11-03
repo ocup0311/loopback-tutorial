@@ -37,3 +37,6 @@
 #
 # [UPGRADE] - 升級版本、大改語法
 # ex. [UPGRADE] CommonJS --> ESM
+#
+# [CHORE] - 非業務邏輯的維護性工作或開發相關的配置變更，例如更新設定檔、調整依賴、改善開發環境..等
+# ex. [CHORE] update ESLint rules

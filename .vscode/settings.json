@@ -1,4 +1,8 @@
 {
+  // ocup setting
+  "explorer.compactFolders": false,
+
+  // lb init setting
   "editor.rulers": [80],
   "editor.tabCompletion": "on",
   "editor.tabSize": 2,
