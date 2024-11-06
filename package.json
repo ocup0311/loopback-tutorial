@@ -33,7 +33,7 @@
     "openapi-spec": "node ./dist/openapi-spec",
     "prestart": "yarn run rebuild",
     "start": "node -r source-map-support/register .",
-    "dev": "nodemon -r source-map-support/register .",
+    "dev": "nodemon",
     "clean": "lb-clean dist *.tsbuildinfo .eslintcache",
     "rebuild": "yarn run clean && yarn run build"
   },
@@ -66,6 +66,7 @@
     "eslint": "^8.57.0",
     "nodemon": "^3.1.7",
     "source-map-support": "^0.5.21",
+    "ts-node": "^10.9.2",
     "typescript": "~5.2.2"
   }
 }
