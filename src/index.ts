@@ -1,7 +1,7 @@
 import * as dotenv from 'dotenv';
-import {ApplicationConfig, LoopbackTutorialApplication} from './application';
-
 dotenv.config();
+
+import {ApplicationConfig, LoopbackTutorialApplication} from './application';
 
 export * from './application';
 

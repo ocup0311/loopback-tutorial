@@ -1,3 +1,4 @@
+import {inject} from '@loopback/core';
 import {
   Count,
   CountSchema,
@@ -6,6 +7,7 @@ import {
   repository,
   Where,
 } from '@loopback/repository';
+import {TodoListManagementService} from '../services';
 import {
   post,
   param,
@@ -17,13 +19,19 @@ import {
   requestBody,
   response,
 } from '@loopback/rest';
-import {TodoList} from '../models';
+import {TodoList, Todo} from '../models';
 import {TodoListRepository} from '../repositories';
+import {
+  TodoListSchemaWithTodos,
+  TodoListWithTodosRequestBody,
+} from './specs/todo-list-controller.specs';
 
 export class TodoListController {
   constructor(
     @repository(TodoListRepository)
     public todoListRepository: TodoListRepository,
+    @inject('services.TodoListManagementService')
+    public todoListManagementService: TodoListManagementService,
   ) {}
 
   @post('/todo-lists')
@@ -145,5 +153,28 @@ export class TodoListController {
   })
   async deleteById(@param.path.number('id') id: number): Promise<void> {
     await this.todoListRepository.deleteById(id);
+  }
+
+  @post('/todolists/createWithTodos')
+  @response(200, {
+    description: 'Create a TodoList with multiple Todos',
+    content: {
+      'application/json': {
+        schema: TodoListSchemaWithTodos,
+      },
+    },
+  })
+  async createTodoListWithTodos(
+    @requestBody(TodoListWithTodosRequestBody)
+    reqData: {
+      todoList: Omit<TodoList, 'id'>;
+      todos: Omit<Todo, 'id'>[];
+    },
+  ): Promise<TodoList> {
+    const {todoList, todos} = reqData;
+    return this.todoListManagementService.createTodoListWithTodos(
+      todoList,
+      todos,
+    );
   }
 }
